@@ -99,7 +99,7 @@ class TopicVersion
             ->setTitle($data['title']);
 
         $user = new User();
-        $user->setUsername($data['username']);
+        $user->setUsername($data['user']['username']);
 
         $this->setUser($user);
     }
