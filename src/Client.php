@@ -6,7 +6,6 @@ use GuzzleHttp\Client as GuzzleClient;
 use Monica\Client\Model\Library;
 use Monica\Client\Model\Topic;
 
-
 class Client
 {
     private $username;
@@ -25,11 +24,12 @@ class Client
 
     public function getLibrary($accountLibraryName)
     {
-        $res = $this->httpClient->get($this->baseUrl.'/api/v1/'.$accountLibraryName,
-            ['auth' => [$this->username, $this->password]]);
+        $res = $this->httpClient->get(
+            $this->baseUrl.'/api/v1/'.$accountLibraryName,
+            ['auth' => [$this->username, $this->password]]
+        );
 
-        if ($res->getStatusCode() == 200)
-        {
+        if ($res->getStatusCode() == 200) {
             $data = json_decode($res->getBody(), true);
             $obj = new Library();
             $obj->fillData($data);
@@ -43,37 +43,33 @@ class Client
     public function getTopics($accountLibraryName, $filter = [])
     {
         $getString = '';
-        if ($filter)
-        {
+        if ($filter) {
             $getArray = [];
-            if (array_key_exists('types', $filter))
-            {
+            if (array_key_exists('types', $filter)) {
                 $getArray[] = 'types='.implode(',', $filter['types']);
             }
 
-            if (array_key_exists('folders', $filter))
-            {
+            if (array_key_exists('folders', $filter)) {
                 $getArray[] = 'folders='.implode(',', $filter['folders']);
             }
 
-            if (array_key_exists('keywords', $filter))
-            {
+            if (array_key_exists('keywords', $filter)) {
                 $getArray[] = 'keywords='.implode(',', $filter['keywords']);
             }
 
-            $getString = '?'.implode('&',$getArray);
+            $getString = '?' . implode('&', $getArray);
         }
 
-        $res = $this->httpClient->get($this->baseUrl.'/api/v1/'.$accountLibraryName.'/topics'.$getString,
-            ['auth' => [$this->username, $this->password]]);
+        $res = $this->httpClient->get(
+            $this->baseUrl.'/api/v1/'.$accountLibraryName.'/topics'.$getString,
+            ['auth' => [$this->username, $this->password]]
+        );
 
-        if ($res->getStatusCode() == 200)
-        {
+        if ($res->getStatusCode() == 200) {
             $ret = [];
             $data = json_decode($res->getBody(), true);
 
-            foreach ($data['topics'] as $topic)
-            {
+            foreach ($data['topics'] as $topic) {
                 $obj = new Topic();
                 $obj->fillData($topic);
                 $ret[] = $obj;
@@ -87,11 +83,12 @@ class Client
 
     public function getTopic($accountLibraryName, $topicName)
     {
-        $res = $this->httpClient->get($this->baseUrl.'/api/v1/'.$accountLibraryName.'/topics/'.$topicName,
-            ['auth' => [$this->username, $this->password]]);
+        $res = $this->httpClient->get(
+            $this->baseUrl.'/api/v1/'.$accountLibraryName.'/topics/'.$topicName,
+            ['auth' => [$this->username, $this->password]]
+        );
 
-        if ($res->getStatusCode() == 200)
-        {
+        if ($res->getStatusCode() == 200) {
             $data = json_decode($res->getBody(), true);
 
             $obj = new Topic();
@@ -105,11 +102,12 @@ class Client
 
     public function getTopicHtml($accountLibraryName, $topicName)
     {
-        $res = $this->httpClient->get($this->baseUrl.'/api/v1/'.$accountLibraryName.'/topics/'.$topicName.'/html',
-            ['auth' => [$this->username, $this->password]]);
+        $res = $this->httpClient->get(
+            $this->baseUrl.'/api/v1/'.$accountLibraryName.'/topics/'.$topicName.'/html',
+            ['auth' => [$this->username, $this->password]]
+        );
 
-        if ($res->getStatusCode() == 200)
-        {
+        if ($res->getStatusCode() == 200) {
             return json_decode($res->getBody(), true)['html'];
         }
 

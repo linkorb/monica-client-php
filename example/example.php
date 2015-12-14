@@ -15,7 +15,7 @@ try {
     $topics = $monica->getTopics('doxedo/help', $filter);
     // the result is an array of Topic class instances
 
-    foreach($topics as $topic) {
+    foreach ($topics as $topic) {
         echo '[' . $topic->getName() . '] "'; // 'how-to-login-to-linkorb'
         echo $topic->getVersion()->getTitle(). '" by '; // “how to login to linkorb”
         echo $topic->getVersion()->getUser()->getUsername(). ' @'; // username of last version
@@ -29,12 +29,8 @@ try {
     $html = $monica->getTopicHtml('doxedo/help', 'exploring-doxedo');
     echo $html . PHP_EOL;
     // returns rendered html
-}
-
-catch (\Exception $e)
-{
-    switch ($e->getCode())
-    {
+} catch (\Exception $e) {
+    switch ($e->getCode()) {
         case 400:
             echo 'Bad Request: ', $e->getMessage();
             break;
