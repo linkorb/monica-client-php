@@ -1,36 +1,36 @@
 <?php
 
 include_once __dir__ . '/../vendor/autoload.php';
-use Monica\Client;
 
-$username = 'joe';
-$password = 'secret';
+$username = 'username';
+$password = 'password';
 $baseUrl = 'http://www.doxedo.com';
-$monica = new Client($username, $password, $baseUrl);
+$monica = new \Monica\Client\Client($username, $password, $baseUrl);
 
 $filter = [
-    'types' => ['faq', 'wiki'],
-    'folders' => ['getting-started'],
-    'keywords' => ['login', 'button']
+    'types' => ['faq', 'how-to']
 ];
 
 try {
-    $topics = $monica->getTopics('linkorb/manual', $filter);
+    $topics = $monica->getTopics('doxedo/help', $filter);
     // the result is an array of Topic class instances
 
     foreach($topics as $topic) {
-        echo $topic->getName(); // 'how-to-login-to-linkorb'
-        echo $topic->getVersion()->getTitle(); // “how to login to linkorb”
-        echo $topic->getVersion()->getUser()->getUsername(); // username of last version
+        echo '[' . $topic->getName() . '] "'; // 'how-to-login-to-linkorb'
+        echo $topic->getVersion()->getTitle(). '" by '; // “how to login to linkorb”
+        echo $topic->getVersion()->getUser()->getUsername(). ' @'; // username of last version
         echo $topic->getType()->getName(); // faq
+        echo PHP_EOL;
     }
 
-    $topic = $monica->getTopic('linkorb/manual', 'how-to-login-to-linkorb');
-    // returns a single topic
-
-    $html = $monica->getTopicHtml('linkorb/manual', 'how-to-login-to-linkorb');
+    $topic = $monica->getTopic('doxedo/help', 'exploring-doxedo');
+    print_r($topic);
+    
+    $html = $monica->getTopicHtml('doxedo/help', 'exploring-doxedo');
+    echo $html . PHP_EOL;
     // returns rendered html
 }
+
 catch (\Exception $e)
 {
     switch ($e->getCode())
