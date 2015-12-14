@@ -1,5 +1,5 @@
 {
-    "name": "linkorb/monica/client",
+    "name": "linkorb/monica-client-php",
     "description": "Monica api client",
     "homepage": "https://github.com/linkorb/monica-client-php",
     "license": "MIT",
