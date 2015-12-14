@@ -1,0 +1,37 @@
+{
+    "name": "linkorb/monica/client",
+    "description": "Monica api client",
+    "homepage": "https://github.com/linkorb/monica-client-php",
+    "license": "MIT",
+    "type": "library",
+
+    "require": {
+        "php": ">=5.3",
+        "guzzlehttp/guzzle": "^6.0"
+    },
+
+    "require-dev": {
+        "ext-curl": "*"
+    },
+
+    "keywords": [ "linkorb", "project", "php", "api client for monica" ],
+
+    "authors": [
+        {
+            "name": "LinkORB",
+            "email": "engineering@linkorb.com",
+            "role": "Development"
+        },
+        {
+            "name": "Denis Alimov",
+            "email": "v03adk@gmail.com",
+            "role": "Development"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Monica\\Client\\": "src/"
+        }
+    }
+}
